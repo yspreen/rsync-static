@@ -2,7 +2,7 @@
 
 set -ex
 
-openssl_ver=3.0.5
+openssl_ver=3.0.7
 
 cd /root
 wget https://www.openssl.org/source/openssl-$openssl_ver.tar.gz
