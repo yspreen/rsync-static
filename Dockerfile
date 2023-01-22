@@ -20,7 +20,9 @@ RUN set -ex \
     && yum install -y centos-release-scl \
     && yum update -y \
     && yum install -y wget file make gcc gcc-c++ gdb devtoolset-11 devtoolset-11-make devtoolset-11-gcc devtoolset-11-gcc-c++  \
-    devtoolset-11-gdb pkgconfig perl-IPC-Cmd perl-Test-Simple \
+    devtoolset-11-gdb pkgconfig perl-IPC-Cmd perl-Test-Simple
+
+RUN set -ex \
     && source scl_source enable devtoolset-11 \
     && /root/openssl3.sh \
     && /root/zlib.sh \
