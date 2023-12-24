@@ -1,4 +1,5 @@
-FROM docker.io/centos:7
+FROM ubuntu:22.04
+
 LABEL maintainer="CaKrome <cakrome@tutanota.com>"
 
 ARG RSYNC_VERSION
@@ -15,15 +16,10 @@ COPY libraries/attr.sh /root/attr.sh
 COPY libraries/acl.sh /root/acl.sh
 COPY libraries/popt.sh /root/popt.sh
 
+# Update and install dependencies
 RUN set -ex \
-    && yum update -y \
-    && yum install -y centos-release-scl \
-    && yum update -y \
-    && yum install -y wget file make gcc gcc-c++ gdb devtoolset-11 devtoolset-11-make devtoolset-11-gcc devtoolset-11-gcc-c++  \
-    devtoolset-11-gdb pkgconfig perl-IPC-Cmd perl-Test-Simple
-
-RUN set -ex \
-    && source scl_source enable devtoolset-11 \
+    && apt-get update -y \
+    && apt-get install -y wget file make gcc g++ gdb pkg-config perl \
     && /root/openssl3.sh \
     && /root/zlib.sh \
     && /root/xxhash.sh \
@@ -40,6 +36,7 @@ RUN set -ex \
     && make -j$((`nproc`+1)) \
     && make install
 
+# Finalize the build
 RUN set -ex \
     && cd /root/build \
     && strip rsync-${RSYNC_VERSION}/bin/rsync \
