@@ -2,7 +2,7 @@
 
 set -ex
 
-zlib_ver=1.2.13
+zlib_ver=1.3
 
 cd /root
 wget https://zlib.net/zlib-$zlib_ver.tar.gz
